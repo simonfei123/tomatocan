@@ -1,18 +1,15 @@
 /* This file defines sitewide styles. Place page-specific styles in their own stylesheet. */
 
-
-
 html {
     width: 100%;
-    overflow-y: scroll;
+    height: 100%;
+
 }
 
 //Wrapper for footer alignment
 body {
-    display: flex !important;
-    min-height: 100vh !important;
-    flex-direction: column !important;
-  overscroll-behavior: none !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 //Wrapper for footer alignment
 main {
@@ -84,16 +81,6 @@ h2.new{
   font-weight: bold;
   font-size: 24px;
   line-height: 24px;
-  text-align: left;
-}
-
-p{
-  color:$brand-black;
-  font-family: Helvetica;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 21px;
 }
 
 p.black{
