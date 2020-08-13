@@ -26,7 +26,7 @@
               <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
               <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
               <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-              <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
+              <span><%= image_tag "live2.png" , :class => 'img-sm'%></span>
               <%end%>
               </td>
               
