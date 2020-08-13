@@ -1,5 +1,8 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <%= will_paginate @calendar_events, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 <% offset = -1 * Time.now.in_time_zone("Pacific Time (US & Canada)").gmt_offset/3600%>
@@ -12,6 +15,7 @@
         <% @calendar_events.sort_by{|t| t.start_at}.each do |event| %>
           <% user = User.find(event.user_id) %>
           <tr>
+          
             <td class=col-xs-3>
               <div id = "calendar-event">
                 <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
@@ -22,12 +26,22 @@
                 <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host" %>
               <% end %>
             <% end %>
-            </td>
-            <td class=col-xs-3>
-              <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
-              <br>
-              <span style="font-size:90%;"id=convocalendar-time<%=i%>></span>
-            </td>
+            </td> 
+
+          <!--Topic-->
+          <td class=col-xs-3>
+              <div id = "calendar-event">
+                <h3>Topic</h3>
+              </div>
+          </td> 
+
+          <td class=col-xs-3>
+            <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
+            <br>
+            <span style="font-size:90%;"id=convocalendar-time<%=i%>></span>
+          </td> 
+
+
           <script>
             var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
             date.setHours(date.getHours() + parseInt("<%=offset%>")) // the 7 is for daylight savings time
@@ -36,6 +50,60 @@
             document.getElementById('convocalendar-time-day<%=i%>').innerHTML = date.toLocaleString(undefined, optionsDay);
             document.getElementById('convocalendar-time<%=i%>').innerHTML = date.toLocaleString(undefined, optionsTime);
           </script>
+          
+          <!-- Activity Counter -->
+          <td class=col-xs-2>
+            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+              <svg width="30px" height="30px" style="color: #8C1D40;" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+            <% else %>
+              <svg width="30px" height="30px" style="color: #8C1D40;" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+              </svg>
+            <% end %>
+          </td>
+
+          <!-- Share Buttons -->
+          <td class=col-xs-2>
+            <% domainurl = "http://www.thinq.tv/"%>
+
+            <a href="#">
+              <span class="glyphicon glyphicon-share-alt" style="font-size:30px; color: #8C1D40;"></span>
+            </a>
+
+            <!-- Facebook Share -->
+            <!-- <a href="http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>%"
+              onclick="window.open('http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>',
+              'newwindow',
+              'width=600,height=400,top=100,left=300');
+              return false;">
+              <%= image_tag("social-share-button/facebook.png")%>
+             
+            </a>&nbsp-->
+
+              <!-- Twitter Share -->
+             <!--  <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
+                onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>,
+                'newwindow',
+                'width=600,height=400,top=80,left=300');
+                return false;">
+                <%= image_tag("social-share-button/twitter.png")%>
+              </a>&nbsp -->
+
+            <!-- LinkedIn -->
+            <!-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>"
+              onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>',
+              'newwindow',
+              'width=600,height=400,top=100,left=300');
+              return false;">
+              <%= image_tag("social-share-button/linkedin.png")%>
+            </a>&nbsp-->
+            
+          </td>
+
           <td class=col-xs-3 style="text-align:center">
             <% @rsvp = Rsvpq.new %>
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
@@ -87,47 +155,13 @@
                       <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
                     <% end %>
                   <% else %>
-                    <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %>
-                    <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %>
+                    <!-- <%= f.text_field :email, :style => "border: 1px solid grey; border-radius: 0px;", placeholder: "Enter email", :class =>"enter_email" %> -->
+                    <%= f.submit "RSVP", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px;", :id => "RSVPsubmit" %> 
                   <% end %>
                 <% end %>
             <% end %>
           </td>
 
-
-          <!-- Share Buttons -->
-          <td class=col-xs-2>
-            <% domainurl = "http://www.thinq.tv/"%>
-
-            <!-- Facebook Share -->
-            <a href="http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>%"
-              onclick="window.open('http://www.facebook.com/sharer.php?u=<%= domainurl %><%= user.permalink %>',
-              'newwindow',
-              'width=600,height=400,top=100,left=300');
-              return false;">
-              <%= image_tag("social-share-button/facebook.png")%>
-             
-            </a>&nbsp
-
-              <!-- Twitter Share -->
-              <a href="https://twitter.com/intent/tweet?text=Join <%= user.name %>'s' Conversation to talk about: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>%20Every%20afternoon%20and%20evening%20ThinQ.tv%20has%20meaningful%20live%20video%20chat%20conversations%20to%20get%20you%20motivated%20for%20the%202020%20elections.%20Go%20to%20http://ThinQ.tv%20and%20browse%20the%20schedule%20of%20Conversations."
-                onclick="window.open('https://twitter.com/intent/tweet?text=Join <%= user.name %> Conversation: <%= event.name + "," %> <%= event.start_at.strftime("%B %d, %I:%M %p")%> PDT: http://www.thinq.tv/<%= user.permalink %>,
-                'newwindow',
-                'width=600,height=400,top=80,left=300');
-                return false;">
-                <%= image_tag("social-share-button/twitter.png")%>
-              </a>&nbsp
-
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>"
-              onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=<%= @surl %>',
-              'newwindow',
-              'width=600,height=400,top=100,left=300');
-              return false;">
-              <%= image_tag("social-share-button/linkedin.png")%>
-            </a>&nbsp
-            
-          </td>
         </tr>
         <% i += 1 %>  
         <% end %>
