@@ -12,10 +12,16 @@
   <% if @conversations.count != 0 %>
     <table class="table table-hover" id=calendar>
       <tbody>
+        <tr>
+          <td><h3 style="color: #8C1D40;">Title</h3></td>
+          <td><h3 style="color: #8C1D40;">Topic</h3></td>
+          <td><h3 style="color: #8C1D40;">Time</h3></td>
+          <td><h3 style="color: #8C1D40;">Activity</h3></td>
+          <td><h3 style="color: #8C1D40;">Share</h3></td>
+        </tr>
         <% @calendar_events.sort_by{|t| t.start_at}.each do |event| %>
           <% user = User.find(event.user_id) %>
           <tr>
-          
             <td class=col-xs-3>
               <div id = "calendar-event">
                 <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
@@ -30,15 +36,22 @@
 
           <!--Topic-->
           <td class=col-xs-3>
-              <div id = "calendar-event">
-                <h3>Topic</h3>
-              </div>
-          </td> 
+            <% rsvpeople = "" %>
+            <% rsvpusers = event.users %>
+            <h3><%= event.topic %></h3><br>
 
+            <% if user_signed_in? %>
+              <% if event.user_id == current_user.id %>
+                <%= link_to '(Edit)', edit_event_path(event.id), id: "calendar-host" %>
+              <% end %>
+            <% end %>
+          </td>
+
+          <!--Time-->
           <td class=col-xs-3>
-            <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
+            <span style="font-size:150%;" id=convocalendar-time-day<%=i%>></span>
             <br>
-            <span style="font-size:90%;"id=convocalendar-time<%=i%>></span>
+            <span style="font-size:90%;"id=convocalendar-time<%=i%>></span> 
           </td> 
 
 
