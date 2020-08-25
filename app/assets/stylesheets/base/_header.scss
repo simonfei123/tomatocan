@@ -15,7 +15,7 @@
 
   .btn-primary {
     color: $brand-gray;
-    background-color: $brand-primary;;
+    background-color: $brand-primary;
     border-color:#771936;
     font: "Helvetica"
   }
@@ -40,13 +40,62 @@
 }
 //is this used anywhere
 #absoluteWrapper {
-  padding-top: 30px;
+  padding-top: 0px;
 }
 //when hovering over logo make it slightly bigger
 #navbarLogo {
   &:hover {
     transform: scale(1.15) rotate(-12deg);
   }
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #8C1D40;
+}
+
+.btn-primary-week {
+    color: #fff;
+    background-color: #8C1D40;
+    width:120px;
+  }
+
+
+.btn-primary-week:hover {
+    color: #8C1D40;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.btn-primary-week:focus {
+    color: #8C1D40;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 /*
 when this block was deleted - it did not change anything

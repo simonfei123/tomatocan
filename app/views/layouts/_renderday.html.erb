@@ -21,6 +21,15 @@
                 <br>
                 <span style="font-size:125%;"id=<%=timeId%>></span>
               </td>
+
+              <td class=col-xs-2>
+              <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+              <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+              <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+              <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
+              <%end%>
+              </td>
+
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
                 date.setHours(date.getHours() + parseInt("<%=offset%>"))

@@ -62,12 +62,28 @@
             <% end %>
           </td>
 
-          <!--Time-->
-          <td class=col-xs-3>
+          
+          <!--<td class=col-xs-3>
             <span style="font-size:150%; font-weight: 600;" id=convocalendar-time-day<%=i%>></span>
             <br>
             <span style="font-size:100%; color:#858585;"id=convocalendar-time<%=i%>></span> 
-          </td> 
+          </td> -->
+
+            <td class=col-xs-3>
+            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+            <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
+            <%end%>
+            </td>
+
+            <!--Time-->
+            <td class=col-xs-3>
+              <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
+              <br>
+              <span style="font-size:90%;"id=convocalendar-time<%=i%>></span>
+            </td>
+
           <script>
             var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
             date.setHours(date.getHours() + parseInt("<%=offset%>")) // the 7 is for daylight savings time
@@ -78,7 +94,7 @@
           </script>
           
           <!-- Activity Counter -->
-          <td class="col-xs-2">
+          <td class="col-xs-3">
             <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
             <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
             <% rsvps = event.rsvpqs %>
@@ -252,7 +268,7 @@
           </td>
 
         </tr>
-        <% i += 1 %>  
+        <% i += 1 %>
         <% end %>
       </tbody>
     </table>

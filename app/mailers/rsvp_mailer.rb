@@ -26,6 +26,7 @@ class RsvpMailer < ApplicationMailer
         img_list = ['email.png','facebook.png','linkedin.png','twitter.png']
         img_list.each {|x| attachments.inline[x] = File.read("#{img_path}/#{x}")}
         attachments.inline['logoDigitalHollow300.png'] = File.read("app/assets/images/logoDigitalHollow300.png")
+        attachments.inline['person.png'] = File.read("app/assets/images/person.png")
     end
 
     def set_url
@@ -45,13 +46,12 @@ class RsvpMailer < ApplicationMailer
                             }.join(' ')
         @share_email_subject = "Invitation to Participate"
         @share_email_content = %W{
-                                Hey!\nJoin me at #{@user_url} today at #{@time}. #{@event_owner} is hosting a 
+                                Hey!\nJoin me at #{@user_url} today at #{@time}. #{@event_owner} is hosting a
                                 live video conversation titled "#{@event.name}" and I would be glad to have you participate.
-                                
+
                                 Here's a brief description of what it's about:\n #{@event.desc.to_s.truncate_words(15)}\n
                                 Thank you.
                             }.join(' ')
     end
 
 end
-  

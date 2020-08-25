@@ -81,13 +81,9 @@ Rails.application.routes.draw do
   match '/:permalink/dashboard'      => "users#dashboard",      :as => :user_dashboard, via: 'get'
   post '/:permalink/markfulfilled'   => 'users#markfulfilled',  :as => :markfulfilled_user
 
-  post '/users/block'                => "block#block"
-  post '/users/unblock'              => "block#unblock"
-  post '/users/unload'               => "block#unload"
-  post '/users/is_blocked'           => "block#is_blocked"
-  post '/users/signed_in'            => "block#signed_in?"
-  get  '/conversations/livecounter'  => "block#liveCount"
-  get  '/conversations/attendees'    => "block#loadAttendees"
+  post '/users/block'                => "users#block"
+  post '/users/unblock'              => "users#unblock"
+  post 'users/unload'                => "users#unload"
 
   # get '/:friendly_id', to: 'groups#show'
 
