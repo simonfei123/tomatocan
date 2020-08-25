@@ -21,6 +21,7 @@
       <tbody>
         <tr>
           <td><h3 style="color: #8C1D40;">Title</h3></td>
+          <td><h3 style="color: #8C1D40;"></h3></td>
           <td><h3 style="color: #8C1D40;">Topic</h3></td>
           <td><h3 style="color: #8C1D40;">Time</h3></td>
           <td><h3 style="color: #8C1D40;">Activity</h3></td>
@@ -32,7 +33,7 @@
 
           <tr>
           <!--Event and Username-->
-            <td class=col-xs-3>
+            <td class=col-xs-2>
               <div id = "calendar-event">
                 <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
               </div>
@@ -48,6 +49,15 @@
                 <% end %>
               <% end %>
             </td> 
+
+          <!--Live Tag-->
+          <td class=col-xs-1>
+            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
+            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
+            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
+            <span><%= image_tag "live2.png" , :size => '50x30'%></span>
+            <%end%>
+          </td> 
 
           <!--Topic-->
           <td class=col-xs-2>
@@ -69,17 +79,10 @@
             <span style="font-size:100%; color:#858585;"id=convocalendar-time<%=i%>></span> 
           </td> -->
 
-            <td class=col-xs-3>
-            <% start_time = event.start_at.strftime("%B %d %Y") + ' ' + event.start_at.strftime("%T") %>
-            <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
-            <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-            <span><%= image_tag "live2.png" , :class => 'img-xs'%></span>
-            <%end%>
-            </td>
-
             <!--Time-->
             <td class=col-xs-3>
-              <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
+            
+            <span style="font-size:125%;" id=convocalendar-time-day<%=i%>></span>
               <br>
               <span style="font-size:90%;"id=convocalendar-time<%=i%>></span>
             </td>
@@ -215,7 +218,7 @@
             <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
             <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-              <%= link_to " Join Conversation NOW ", user_viewer_path(user.permalink, chatrm: @displayconvo.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
+              <%= link_to " Join ", user_viewer_path(user.permalink, chatrm: @displayconvo.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
               <div id="live<%=i%>"></div>
               <script>
                 function liveCount() {
