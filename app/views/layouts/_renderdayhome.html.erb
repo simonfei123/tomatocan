@@ -17,17 +17,23 @@
             <%eventCount += 1%>
             <% user = User.find(event.user_id) %>
             <tr>
+              <!--Event and Username-->
               <td class=col-xs-3>
                 <div id = "calendar-event">
                   <%= link_to event.name, event_path(event.id), id: "calendar-event", title: event.desc %>
                 </div>
-                <%= link_to user.name, user.permalink%>
+                <div id = "calendar-host">
+                  <%= link_to user.name, user.permalink, id: "calendar-host" %>
+                </div>
+
                 <% if user_signed_in? %>
                   <% if event.user_id == current_user.id %>
-                    <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host" %>
+                    <div id = "calendar-host">
+                      <%= link_to '(Edit Conversation)', edit_event_path(event.id), id: "calendar-host" %>
+                    </div>
                   <% end %>
                 <% end %>
-              </td>
+              </td> 
 
               <!--Topic-->
               <td class=col-xs-3>
@@ -42,19 +48,20 @@
                 <% end %>
               </td>
 
+              <!--Time-->
               <td class=col-xs-3>
                 <% edt = event.start_at + 3.hours %>
                 <% dayId = "week-day-#{currentDate.strftime('%A')}-#{i}"%>
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
-                <span style="font-size:125%;" id="<%=dayId%>"></span>
+                <span style="font-size:150%; font-weight: 600;" id="<%=dayId%>"></span>
                 <br>
-                <span style="font-size:90%;"id="<%=timeId%>"></span>
+                <span style="font-size:100%; color:#858585;"id="<%=timeId%>"></span>
               </td>
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
                 date.setHours(date.getHours() + parseInt("<%=offset%>")) // the 7 is for daylight savings time
                 var optionsDay = { weekday: 'short', month: 'long', day: 'numeric' };
-                var optionsTime = { hour: '2-digit', minute: '2-digit', timeZoneName: 'long'};
+                var optionsTime = { hour: '2-digit', minute: '2-digit', timeZoneName: 'short'};
                 document.getElementById('<%=dayId%>').innerHTML = date.toLocaleString(undefined, optionsDay);
                 document.getElementById('<%=timeId%>').innerHTML = date.toLocaleString(undefined, optionsTime);
               </script>
