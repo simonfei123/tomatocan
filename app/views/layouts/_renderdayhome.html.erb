@@ -56,7 +56,7 @@
               <span><%= image_tag "live2.png" , :class => 'img-sm'%></span>
               <%end%>
               </td>
-              
+
 
               <td class=col-xs-3>
                 <% edt = event.start_at + 3.hours %>
@@ -64,7 +64,7 @@
                 <% timeId = "week-time-#{currentDate.strftime('%A')}-#{i}"%>
                 <span style="font-size:150%; font-weight: 600;" id="<%=dayId%>"></span>
                 <br>
-                <span style="font-size:100%; color:#858585;"id="<%=timeId%>"></span>
+                <span style="font-size:90%; color: #6c757d;"id="<%=timeId%>"></span>
               </td>
               <script>
                 var date = new Date(Date.parse("<%= event.start_at.strftime("%FT%T%:z") %>"));
@@ -178,8 +178,8 @@
                 <% end_time = event.end_at.strftime("%B %d %Y") + ' ' + event.end_at.strftime("%T") %>
 
                 <% if ((Time.current - offset.hours) > Time.find_zone("UTC").parse(start_time) ) && ((Time.current - offset.hours) < Time.find_zone("UTC").parse(end_time)) %>
-                  <%= link_to " Join Conversation NOW ", user_viewer_path(user.permalink, chatrm: @displayconvo.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
-                  <div id="live<%=i%>"></div>
+                  <%= link_to " JOIN ", user_viewer_path(user.permalink, chatrm: event.topic , event: event.id), class: "btn btn-primary btn-sm fa fa-video-camera" %>
+                  <div id="live<%=eventCount%>"></div>
                   <script>
                     function liveCount() {
                       $.get("/conversations/livecounter", {id: "<%=event.id%>"}, function(data) {
@@ -236,7 +236,7 @@
         <% if eventCount == 0 %>
           <tr>
             <td>
-              <h4>There are no conversations on <%=currentDate.strftime('%A') %>. Try the following day!</h4>
+              <h4>There are no more conversations on <%=currentDate.strftime('%A') %>. Try the following day!</h4>
             </td>
           </tr>
         <%end%>

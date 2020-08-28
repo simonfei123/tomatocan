@@ -26,7 +26,7 @@
         <%= image_tag @user.profilepic.url.to_s, :class => "w-50 h-50 mt-5 pt-5"%>
       <% else %>
         <%= image_tag "logoDigitalHollow300.png", :class => "w-50 h-50 mt-5 pt-5"%> <br>
-      <% end %><br><br>  
+      <% end %><br><br>
       </div>
     </div>
 
@@ -36,14 +36,14 @@
         <% if @displayconvo.present? && @displayconvo.user_id == @user.id %>
           <br><br><br><br><br><br><br>
           <div id="eventCurrentdiv" >
-              <h3>We're talking about <%= @displayconvo.name %></h3>  
-              <p> right NOW!   </p> 
+              <h3>We're talking about <%= @displayconvo.name %></h3>
+              <p> right NOW!   </p>
               <%= link_to " Join " + @displayconvo.topic, user_viewer_path(@user.permalink, chatrm: @event.topic , event: @event.id), class: "btn btn-primary btn-sm fa fa-video-camera", style: "margin-top: 10px; margin-bottom: 10px; border-radius: 5px; font-size: 40px" %>
               <br>
           </div>
         <% else %>
           <br><br><br><br><br><br><br><br><br><br>
-          <div class="aboutHeader" style = "font-size: 30px;">  
+          <div class="aboutHeader" style = "font-size: 30px;">
             <b><%= @event.name %></b>
           </div>
         <% end %>
@@ -86,13 +86,13 @@
               <%= f.submit "RSVP NOW", :style => "color: #fff; background-color: #880f42; padding: 2px 20px; font-weight: normal; border-radius:0px", :id => "RSVPsubmit" %><br>
             <% end %>
           <% end %>
-        
+
             <% if user_signed_in? %>
               <% if @event.user_id == current_user.id %>
                 <%= link_to "Edit Conversation", edit_event_path(@event)%><br><br>
               <% end %>
           <% end %>
-    
+
           <% if @rsvps.count > 0 %>
             <br><br><br><br><br><br><br><br>
             <!-- Default dropleft button -->
@@ -111,7 +111,7 @@
                         <% if rsvpuser.profilepic.url.match(/http/) %>
                           <%= image_tag rsvpuser.profilepic.url, :class => 'img-xs' %>
                         <% end %>
-                      <% else %> 
+                      <% else %>
                         <%= image_tag "logoDigitalHollow300.png", :class => 'img-xs' %>
                       <% end %>
                     </span>
@@ -180,7 +180,7 @@
         <b>Make sure your people are involved</b>
         <div style = "font-size: 15px">
           E-Mail this Conversation to friends and colleagues:
-        </div> 
+        </div>
         <a href="mailto:?&subject=Join%20me%20at%20ThinQ.tv!&body=Come%20join%20me%20for%20a%20live%20video%20Conversation%20<%= @event.name %>%20at%20ThinQ.tv!%20<%= @event.start_at.strftime("%A, %B %d") %>%20<%= @event.start_at.strftime("%I:%M %p")%>%20PDT%20/%20<%= edt.strftime("%I:%M %p") %>%20EDT.%20<%= @event.desc %>" alt="Email" target="_blank" style="font-size: 15px; color: white; margin-left: 10px; background-color: #8C1D40; padding: 3px 5px 3px 5px; border-radius: 3px">E-Mail 📧</a>
         <div style = "font-size: 15px; padding-top: 5px">
           Share this Conversation on social media:
@@ -224,10 +224,10 @@
             </div>
             On Mobile:
             <div style = "margin-left: 5px">
-              Download the JITSI meet app and join the CONVERSATION chatroom.<br> 
+              Download the JITSI meet app and join the CONVERSATION chatroom.<br>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   </div>

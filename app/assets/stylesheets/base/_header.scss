@@ -48,38 +48,38 @@
     transform: scale(1.15) rotate(-12deg);
   }
 }
-.container-fluid {
+.container-fluid pt-1 mt-1{
     padding-right: 15px;
     padding-left: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
     margin-right: auto;
     margin-left: auto;
-    background-color: #8C1D40;
+    background-color: #ffffff;
 }
 
 .btn-primary-week {
-    color: #fff;
-    background-color: #8C1D40;
+    color: #ffffff !important;
+    background-color: #8C1D40 !important;
     width:120px;
   }
 
 
 .btn-primary-week:hover {
-    color: #8C1D40;
-    background-color: #ffffff;
+    color: #8C1D40 !important;
+    background-color: #ffffff !important;
     border-color: #ffffff;
 }
 
 .btn-primary-week:focus {
-    color: #8C1D40;
-    background-color: #ffffff;
+    color: #8C1D40 !important;
+    background-color: #ffffff !important;
     border-color: #ffffff;
 }
 
 .btn {
     display: inline-block;
-    margin-bottom: 4px;
+    margin: 4px;
     font-weight: normal;
     text-align: center;
     white-space: nowrap;

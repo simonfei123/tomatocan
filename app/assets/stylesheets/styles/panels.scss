@@ -17,14 +17,15 @@
 
 #calendar-event {
   display: block;
-  font-size: 1rem;
+  font-size: 1.1em;
   font-weight: 600;
+  color: #222222;
 }
 
 
 #calendar-host {
   display: block;
-  font-size: .75rem;
+  font-size: 1rem;
 }
 
 #calendar-time {
@@ -117,7 +118,9 @@
   height: 15%;
   /*text-align: center;*/
   padding-left: 70px;
-  background-color: #8C1D40;
+  text-align: center;
+  border-color: #FFC627;
+  border-width: 1px;
 }
 
 .tabContainer2 .buttonContainer {
@@ -127,19 +130,17 @@
 }
 
 .tabContainer .buttonContainer button{
-  width: 150px;
+  width: 200px;
   float: center;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
   font-family: sans-serif;
   font-size: 18px;
   font-weight: bold;
   background-color: #8C1D40;
   color: white;
   border-radius: 5px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border-color: white;
+  margin-top: 5px;
 }
 
 .tabContainer2 .buttonContainer button{
